@@ -17,8 +17,11 @@ const BackButton: React.FC<BackButtonProps> = ({ href, onClick, productId }) => 
     if (onClick) {
       onClick();
     } else if (href) {
-      const url = productId ? `${href}#product-${productId}` : href;
-      router.push(url);
+      // Store the product ID in sessionStorage for the home page to handle scrolling
+      if (productId) {
+        sessionStorage.setItem('scrollToProduct', productId.toString());
+      }
+      router.push(href);
     } else {
       router.back();
     }

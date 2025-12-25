@@ -46,13 +46,15 @@ const Page: React.FC = () => {
     setSelectedSubcategory('All');
   }, [selectedCategory]);
 
-  // Scroll to product if hash is present in URL
+  // Scroll to product if stored in sessionStorage (from back navigation)
   useEffect(() => {
     if (typeof window !== 'undefined' && !loading && products.length > 0) {
-      const hash = window.location.hash;
-      if (hash && hash.startsWith('#product-')) {
-        const productId = hash.replace('#product-', '');
-        const element = document.getElementById(`product-${productId}`);
+      const scrollToProductId = sessionStorage.getItem('scrollToProduct');
+      if (scrollToProductId) {
+        // Clear the sessionStorage immediately
+        sessionStorage.removeItem('scrollToProduct');
+
+        const element = document.getElementById(`product-${scrollToProductId}`);
         if (element) {
           // Small delay to ensure DOM is fully rendered
           setTimeout(() => {
@@ -60,6 +62,8 @@ const Page: React.FC = () => {
               behavior: 'smooth',
               block: 'center'
             });
+            // Update URL hash to reflect current position
+            window.history.replaceState(null, '', `#product-${scrollToProductId}`);
             // Optional: Highlight the product briefly
             element.classList.add('ring-4', 'ring-amber-400', 'ring-opacity-50');
             setTimeout(() => {
