@@ -15,7 +15,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   return (
     <div className="min-h-screen bg-stone-50">
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <BackButton href="/" />
+        <BackButton href="/" productId={product.id} />
 
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">

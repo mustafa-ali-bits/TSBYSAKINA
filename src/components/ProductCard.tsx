@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const quantity = cartItem ? cartItem.quantity : 0;
 
   return (
-    <div className="group bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+    <div id={`product-${product.id}`} className="group bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
       <div className="relative h-72 overflow-hidden bg-stone-100">
         <img
           src={product.image}

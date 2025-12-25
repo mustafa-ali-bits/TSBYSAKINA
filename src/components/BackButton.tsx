@@ -7,16 +7,18 @@ import { useRouter } from 'next/navigation';
 interface BackButtonProps {
   href?: string;
   onClick?: () => void;
+  productId?: number;
 }
 
-const BackButton: React.FC<BackButtonProps> = ({ href, onClick }) => {
+const BackButton: React.FC<BackButtonProps> = ({ href, onClick, productId }) => {
   const router = useRouter();
 
   const handleClick = () => {
     if (onClick) {
       onClick();
     } else if (href) {
-      router.push(href);
+      const url = productId ? `${href}#product-${productId}` : href;
+      router.push(url);
     } else {
       router.back();
     }

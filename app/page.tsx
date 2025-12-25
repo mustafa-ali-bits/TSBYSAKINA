@@ -46,6 +46,31 @@ const Page: React.FC = () => {
     setSelectedSubcategory('All');
   }, [selectedCategory]);
 
+  // Scroll to product if hash is present in URL
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !loading && products.length > 0) {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#product-')) {
+        const productId = hash.replace('#product-', '');
+        const element = document.getElementById(`product-${productId}`);
+        if (element) {
+          // Small delay to ensure DOM is fully rendered
+          setTimeout(() => {
+            element.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center'
+            });
+            // Optional: Highlight the product briefly
+            element.classList.add('ring-4', 'ring-amber-400', 'ring-opacity-50');
+            setTimeout(() => {
+              element.classList.remove('ring-4', 'ring-amber-400', 'ring-opacity-50');
+            }, 2000);
+          }, 100);
+        }
+      }
+    }
+  }, [loading, products]);
+
   const categories = ProductUtils.getUniqueCategories(products);
   const subcategories = ProductUtils.getSubcategories(products, selectedCategory);
   const filteredProducts = ProductUtils.filterProducts(
