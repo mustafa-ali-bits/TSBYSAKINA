@@ -1,27 +1,21 @@
 import React from 'react';
-import { ArrowLeft, Star, Heart } from 'lucide-react';
+import { Star, Heart } from 'lucide-react';
 import { Product } from '../types/product';
 import { ProductUtils } from '../lib/productUtils';
+import BackButton from './BackButton';
 
 interface ProductDetailProps {
   product: Product;
-  onBack: () => void;
 }
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
+const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const discount = ProductUtils.getDiscountPercentage(product.mrp, product.price);
   const savings = ProductUtils.getSavingsAmount(product.mrp, product.price);
 
   return (
     <div className="min-h-screen bg-stone-50">
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-amber-900 hover:text-amber-700 transition-colors mb-6"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          Back to Products
-        </button>
+        <BackButton href="/" />
 
         <div className="grid md:grid-cols-2 gap-12">
           <div className="space-y-6">
