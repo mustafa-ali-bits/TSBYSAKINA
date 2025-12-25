@@ -1,9 +1,10 @@
-Name,MRP,Price,Category,Subcategory,Description,Image URL,Rating
-Dark Chocolate Truffles,29.99,24.99,Chocolates,Truffles,"Rich 70% dark chocolate ganache dusted with cocoa powder",https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400,4.8
-Premium Dark Bar,11.99,8.99,Chocolates,Dark Chocolate,"85% single-origin dark chocolate bar",https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400,4.9
-Milk Chocolate Hazelnut,9.99,7.99,Chocolates,Milk Chocolate,"Creamy milk chocolate with roasted hazelnuts",https://images.unsplash.com/photo-1607478900766-efe13248b125?w=400,5.0
-White Chocolate Raspberry,15.99,12.99,Chocolates,White Chocolate,"Smooth white chocolate with raspberry filling",https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400,4.7
-Artisan Caramel Collection,34.99,29.99,Chocolates,Caramel,"Handcrafted salted caramel chocolates",https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400,4.9
-Organic Mint Chocolate,13.99,10.99,Chocolates,Mint,"Organic dark chocolate with fresh mint",https://images.unsplash.com/photo-1607478900766-efe13248b125?w=400,4.6
-Espresso Beans in Chocolate,19.99,16.99,Chocolates,Coffee,"Dark chocolate covered espresso beans",https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400,4.8
-Almond Butter Cups,22.99,18.99,Chocolates,Nut Butter,"Homemade almond butter in dark chocolate",https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400,4.9
+Name,MRP,Price,Category,Subcategory,Description,Image URL,Rating,Inventory
+Dark Chocolate Truffles,29.99,24.99,Chocolates,Truffles,"Rich 70% dark chocolate ganache dusted with cocoa powder",https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400,4.8,yes
+Premium Dark Bar,11.99,8.99,Chocolates,Dark Chocolate,"85% single-origin dark chocolate bar",https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400,4.9,yes
+Milk Chocolate Hazelnut,9.99,7.99,Chocolates,Milk Chocolate,"Creamy milk chocolate with roasted hazelnuts",https://images.unsplash.com/photo-1607478900766-efe13248b125?w=400,5.0,yes
+White Chocolate Raspberry,15.99,12.99,Chocolates,White Chocolate,"Smooth white chocolate with raspberry filling",https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400,4.7,yes
+Artisan Caramel Collection,34.99,29.99,Chocolates,Caramel,"Handcrafted salted caramel chocolates",https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400,4.9,yes
+Organic Mint Chocolate,13.99,10.99,Chocolates,Mint,"Organic dark chocolate with fresh mint",https://images.unsplash.com/photo-1607478900766-efe13248b125?w=400,4.6,yes
+Espresso Beans in Chocolate,19.99,16.99,Chocolates,Coffee,"Dark chocolate covered espresso beans",https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400,4.8,yes
+Almond Butter Cups,22.99,18.99,Chocolates,Nut Butter,"Homemade almond butter in dark chocolate",https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400,4.9,yes
+Dark Chocolate Almonds,16.99,13.99,Chocolates,Nut Chocolate,"Dark chocolate covered almonds",https://images.unsplash.com/photo-1607478900766-efe13248b125?w=400,4.7,no

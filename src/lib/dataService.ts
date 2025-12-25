@@ -26,7 +26,8 @@ export const DataService = {
         subcategory: "Truffles",
         description: "Rich 70% dark chocolate ganache dusted with cocoa powder",
         image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400",
-        rating: 4.8
+        rating: 4.8,
+        inventory: true
       },
       {
         id: 2,
@@ -37,7 +38,8 @@ export const DataService = {
         subcategory: "Dark Chocolate",
         description: "85% single-origin dark chocolate bar",
         image: "https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400",
-        rating: 4.9
+        rating: 4.9,
+        inventory: true
       },
       {
         id: 3,
@@ -48,7 +50,8 @@ export const DataService = {
         subcategory: "Milk Chocolate",
         description: "Creamy milk chocolate with roasted hazelnuts",
         image: "https://images.unsplash.com/photo-1607478900766-efe13248b125?w=400",
-        rating: 5.0
+        rating: 5.0,
+        inventory: true
       }
     ];
   }

@@ -87,6 +87,7 @@ async function fetchFromGoogleSheets() {
       description: row[5] || '',
       image: row[6] || 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400',
       rating: parseFloat(row[7]) || 4.5,
+      inventory: (row[8] || '').toLowerCase() === 'yes',
     }));
 
     console.log(`Final products count: ${products.length}`);
@@ -143,6 +144,7 @@ function getDemoData() {
       description: 'Rich 70% dark chocolate ganache dusted with cocoa powder',
       image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400',
       rating: 4.8,
+      inventory: true,
     },
     {
       id: 2,
@@ -154,6 +156,7 @@ function getDemoData() {
       description: '85% single-origin dark chocolate bar',
       image: 'https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400',
       rating: 4.9,
+      inventory: true,
     }
   ];
 }

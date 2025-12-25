@@ -8,4 +8,5 @@ export interface Product {
   description: string;
   image: string;
   rating: number;
+  inventory: boolean;
 }

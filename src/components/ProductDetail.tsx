@@ -60,16 +60,23 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
 
             <div className="space-y-2">
               <div className="flex items-center gap-4">
-                <span className="text-3xl font-bold text-amber-900">${product.price}</span>
-                <span className="text-xl text-stone-400 line-through">${product.mrp}</span>
-                <span className="text-lg font-semibold text-green-600">Save ${savings}</span>
+                <span className="text-3xl font-bold text-amber-900">₹{product.price}</span>
+                <span className="text-xl text-stone-400 line-through">₹{product.mrp}</span>
+                <span className="text-lg font-semibold text-green-600">Save ₹{savings}</span>
               </div>
               <p className="text-stone-600">Limited time offer - {discount}% discount!</p>
             </div>
 
             <div className="space-y-4">
-              <button className="w-full bg-amber-900 text-white py-4 rounded-full font-semibold hover:bg-amber-800 transition-all shadow-lg hover:shadow-xl">
-                Add to Cart
+              <button
+                className={`w-full py-4 rounded-full font-semibold transition-all shadow-lg hover:shadow-xl ${
+                  product.inventory
+                    ? 'bg-amber-900 text-white hover:bg-amber-800'
+                    : 'bg-stone-400 text-stone-600 cursor-not-allowed'
+                }`}
+                disabled={!product.inventory}
+              >
+                {product.inventory ? 'Add to Cart' : 'Out of Stock'}
               </button>
               <button className="w-full bg-white text-amber-900 py-4 rounded-full font-semibold hover:bg-stone-100 transition-all shadow-md border border-stone-200">
                 Add to Wishlist
@@ -82,8 +89,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 <p><span className="font-medium">Category:</span> {product.category}</p>
                 <p><span className="font-medium">Subcategory:</span> {product.subcategory}</p>
                 <p><span className="font-medium">Rating:</span> {product.rating}/5</p>
-                <p><span className="font-medium">MRP:</span> ${product.mrp}</p>
-                <p><span className="font-medium">Price:</span> ${product.price}</p>
+                <p><span className="font-medium">MRP:</span> ₹{product.mrp}</p>
+                <p><span className="font-medium">Price:</span> ₹{product.price}</p>
+                <p><span className={`font-medium ${product.inventory ? 'text-green-600' : 'text-red-600'}`}>
+                  Availability: {product.inventory ? 'In Stock' : 'Out of Stock'}
+                </span></p>
               </div>
             </div>
           </div>
