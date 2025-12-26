@@ -33,10 +33,7 @@ async function fetchProductsFromAPI() {
 
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}?key=${API_KEY}&_=${Date.now()}`;
     const response = await fetch(url, {
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
+      next: { revalidate: 60 }, // Cache for 60 seconds (1 minute)
     });
 
     if (!response.ok) {
@@ -77,10 +74,7 @@ async function getSheetNames(sheetId: string, apiKey: string) {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}?key=${apiKey}&_=${Date.now()}`;
 
   const response = await fetch(url, {
-    cache: 'no-store',
-    headers: {
-      'Cache-Control': 'no-cache',
-    },
+    next: { revalidate: 60 }, // Cache for 60 seconds (1 minute)
   });
 
   if (!response.ok) {

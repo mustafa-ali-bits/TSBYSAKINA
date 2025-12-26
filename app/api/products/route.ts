@@ -25,10 +25,7 @@ async function getSheetNames() {
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}?key=${API_KEY}&_=${Date.now()}`;
 
   const response = await fetch(url, {
-    cache: 'no-store',
-    headers: {
-      'Cache-Control': 'no-cache',
-    },
+    next: { revalidate: 60 }, // Cache for 60 seconds (1 minute)
   });
   if (!response.ok) {
     throw new Error('Failed to fetch spreadsheet metadata');
@@ -53,10 +50,7 @@ async function fetchFromGoogleSheets() {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}?key=${API_KEY}&_=${Date.now()}`;
     console.log(url);
     const response = await fetch(url, {
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache',
-      },
+      next: { revalidate: 60 }, // Cache for 60 seconds (1 minute)
     });
     if (!response.ok) {
       throw new Error(`Failed to fetch data from sheet "${sheetName}"`);
@@ -85,7 +79,7 @@ async function fetchFromGoogleSheets() {
       category: row[3] || '',
       subcategory: row[4] || '',
       description: row[5] || '',
-      image: row[6] || 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400',
+      image: row[6] || '',
       rating: parseFloat(row[7]) || 4.5,
       inventory: (row[8] || '').toLowerCase() === 'yes',
     }));
@@ -114,9 +108,7 @@ export async function GET() {
     const products = await fetchFromGoogleSheets();
     return NextResponse.json(products, {
       headers: {
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
       },
     });
   } catch (error) {

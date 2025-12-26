@@ -3,7 +3,9 @@ import { Product } from '../types/product';
 export const DataService = {
   async fetchFromGoogleSheets(): Promise<Product[]> {
     try {
-      const response = await fetch('/api/products');
+      const response = await fetch('/api/products', {
+        next: { revalidate: 60 }, // Cache for 60 seconds (1 minute)
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch products from API');
       }
