@@ -82,6 +82,7 @@ async function fetchFromGoogleSheets() {
       image: row[6] || '',
       rating: parseFloat(row[7]) || 4.5,
       inventory: (row[8] || '').toLowerCase() === 'yes',
+      customizationNote: row[10] || '',
     }));
 
     console.log(`Final products count: ${products.length}`);
@@ -137,6 +138,7 @@ function getDemoData() {
       image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400',
       rating: 4.8,
       inventory: true,
+      customizationNote: 'Add personalized message or choose from available toppings like nuts, fruits, or edible flowers.',
     },
     {
       id: 2,
@@ -149,6 +151,7 @@ function getDemoData() {
       image: 'https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400',
       rating: 4.9,
       inventory: true,
+      customizationNote: 'Can be engraved with custom text or logo. Available in different cocoa percentages.',
     }
   ];
 }

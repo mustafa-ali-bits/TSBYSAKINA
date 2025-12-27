@@ -6,7 +6,7 @@ import { useCart } from '../../src/context/CartContext';
 import { Trash2, Plus, Minus, MessageCircle } from 'lucide-react';
 
 const CartPage: React.FC = () => {
-  const { cart, updateQuantity, removeFromCart, totalItems } = useCart();
+  const { cart, updateQuantity, removeFromCart, updateCustomization, totalItems } = useCart();
 
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const deliveryFee = subtotal > 800 ? 0 : 60; // Free delivery over ₹800
@@ -17,7 +17,11 @@ const CartPage: React.FC = () => {
   const [address, setAddress] = useState('');
 
   const handleOrderNow = () => {
-    const message = `New Order:\n\nCustomer Details:\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\n\nOrder Items:\n${cart.map(item => `- ${item.name} x ${item.quantity}: ₹${(item.price * item.quantity).toFixed(2)}`).join('\n')}\n\nSubtotal: ₹${subtotal.toFixed(2)}\nDelivery Fee: ${deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}\nTotal: ₹${total.toFixed(2)}`;
+    const message = `New Order:\n\nCustomer Details:\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\n\nOrder Items:\n${cart.map(item => {
+      const baseItem = `- ${item.name} x ${item.quantity}: ₹${(item.price * item.quantity).toFixed(2)}`;
+      const customization = item.customization ? `\n  Customization: ${item.customization}` : '';
+      return baseItem + customization;
+    }).join('\n')}\n\nSubtotal: ₹${subtotal.toFixed(2)}\nDelivery Fee: ${deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}\nTotal: ₹${total.toFixed(2)}`;
     const whatsappUrl = `https://wa.me/918955094830?text=${encodeURIComponent(message)}`;
     window.location.href = whatsappUrl;
   };
@@ -96,6 +100,16 @@ const CartPage: React.FC = () => {
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
+                    </div>
+                    <div className="mt-3">
+                      <label className="block text-sm font-medium text-stone-700 mb-1">Customization</label>
+                      <input
+                        type="text"
+                        value={item.customization}
+                        onChange={(e) => updateCustomization(item.id, e.target.value)}
+                        className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+                        placeholder="e.g., Add nuts, special message, etc."
+                      />
                     </div>
                   </div>
                   <div className="text-right">

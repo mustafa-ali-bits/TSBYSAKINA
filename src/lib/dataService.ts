@@ -29,7 +29,8 @@ export const DataService = {
         description: "Rich 70% dark chocolate ganache dusted with cocoa powder",
         image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400",
         rating: 4.8,
-        inventory: true
+        inventory: true,
+        customizationNote: "Add personalized message or choose from available toppings like nuts, fruits, or edible flowers."
       },
       {
         id: 2,
@@ -41,7 +42,8 @@ export const DataService = {
         description: "85% single-origin dark chocolate bar",
         image: "https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400",
         rating: 4.9,
-        inventory: true
+        inventory: true,
+        customizationNote: "Can be engraved with custom text or logo. Available in different cocoa percentages."
       },
       {
         id: 3,
@@ -53,7 +55,8 @@ export const DataService = {
         description: "Creamy milk chocolate with roasted hazelnuts",
         image: "https://images.unsplash.com/photo-1607478900766-efe13248b125?w=400",
         rating: 5.0,
-        inventory: true
+        inventory: true,
+        customizationNote: "Nut-free alternatives available. Can be customized with different nut types or made without nuts."
       }
     ];
   }

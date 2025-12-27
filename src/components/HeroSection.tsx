@@ -7,10 +7,10 @@ const HeroSection: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6">
             <h2 className="text-5xl md:text-6xl font-serif font-bold text-amber-900 leading-tight">
-              Handcrafted<br />Chocolate<br />Perfection
+              Chocolates <br />Brownies<br />Cookies
             </h2>
             <p className="text-lg text-stone-700 leading-relaxed">
-              Every piece tells a story of passion, quality, and artistry. Discover chocolates crafted with love by Sakina.
+              Handcrafted chocolates, brownies & cookies made fresh with premium ingredients and lots of love.
             </p>
             <button
               onClick={() => {

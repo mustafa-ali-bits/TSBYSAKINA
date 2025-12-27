@@ -8,6 +8,7 @@ interface CartItem {
   price: number;
   image: string;
   quantity: number;
+  customization: string;
 }
 
 interface CartContextType {
@@ -15,6 +16,7 @@ interface CartContextType {
   addToCart: (product: { id: number; name: string; price: number; image: string }, quantity: number) => void;
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
+  updateCustomization: (id: number, customization: string) => void;
   totalItems: number;
   clearCart: () => void;
 }
@@ -46,7 +48,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             : item
         );
       } else {
-        return [...prevCart, { ...product, quantity }];
+        return [...prevCart, { ...product, quantity, customization: '' }];
       }
     });
   };
@@ -67,6 +69,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   };
 
+  const updateCustomization = (id: number, customization: string) => {
+    setCart(prevCart =>
+      prevCart.map(item =>
+        item.id === id ? { ...item, customization } : item
+      )
+    );
+  };
+
   const clearCart = () => {
     setCart([]);
   };
@@ -79,6 +89,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       addToCart,
       removeFromCart,
       updateQuantity,
+      updateCustomization,
       totalItems,
       clearCart
     }}>

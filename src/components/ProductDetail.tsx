@@ -128,6 +128,12 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                   Availability: {product.inventory ? 'In Stock' : 'Out of Stock'}
                 </span></p>
               </div>
+              {product.customizationNote && (
+                <div className="mt-4 pt-4 border-t border-stone-200">
+                  <h4 className="text-md font-semibold text-amber-900 mb-2">Customization Options</h4>
+                  <p className="text-sm text-stone-600">{product.customizationNote}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
