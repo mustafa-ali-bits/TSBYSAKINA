@@ -22,7 +22,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const quantity = cartItem ? cartItem.quantity : 0;
 
   const handleOrderNow = () => {
-    addToCart({ id: product.id, name: product.name, price: product.price, image: product.image }, 1);
+    if (quantity === 0) {
+      addToCart({ id: product.id, name: product.name, price: product.price, image: product.image }, 1);
+    }
     router.push('/cart');
   };
 
@@ -104,7 +106,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                     </div>
                   )}
                   <button onClick={handleOrderNow} className="w-full bg-white text-amber-900 py-4 rounded-full font-semibold hover:bg-stone-100 transition-all shadow-md border border-stone-200">
-                    Order
+                    {quantity > 0 ? 'Go to Cart' : 'Order'}
                   </button>
                 </>
               ) : (
