@@ -43,46 +43,53 @@ const Page: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // Confetti effect on app launch
+  // Confetti effect on first app visit only
   useEffect(() => {
     if (typeof window !== 'undefined' && !loading) {
-      const end = Date.now() + (2 * 1000); // 2 seconds
-      const colors = ['#bb0000', '#ffffff'];
+      const hasSeenConfetti = localStorage.getItem('hasSeenConfetti');
 
-      const frame = () => {
-        // From bottom center
-        (window as any).confetti({
-          particleCount: 2,
-          angle: 90,
-          spread: 60,
-          origin: { x: 0.5, y: 1 },
-          colors: colors
-        });
+      if (!hasSeenConfetti) {
+        // Mark as seen
+        localStorage.setItem('hasSeenConfetti', 'true');
 
-        // From left side
-        (window as any).confetti({
-          particleCount: 2,
-          angle: 60,
-          spread: 55,
-          origin: { x: 0 },
-          colors: colors
-        });
+        const end = Date.now() + (2 * 1000); // 2 seconds
+        const colors = ['#bb0000', '#ffffff'];
 
-        // From right side
-        (window as any).confetti({
-          particleCount: 2,
-          angle: 120,
-          spread: 55,
-          origin: { x: 1 },
-          colors: colors
-        });
+        const frame = () => {
+          // From bottom center
+          (window as any).confetti({
+            particleCount: 2,
+            angle: 90,
+            spread: 60,
+            origin: { x: 0.5, y: 1 },
+            colors: colors
+          });
 
-        if (Date.now() < end) {
-          requestAnimationFrame(frame);
-        }
-      };
+          // From left side
+          (window as any).confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+          });
 
-      frame(); // Start immediately
+          // From right side
+          (window as any).confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        };
+
+        frame(); // Start immediately
+      }
     }
   }, [loading]);
 
