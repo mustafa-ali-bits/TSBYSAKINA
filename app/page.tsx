@@ -43,6 +43,49 @@ const Page: React.FC = () => {
     fetchProducts();
   }, []);
 
+  // Confetti effect on app launch
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !loading) {
+      const end = Date.now() + (2 * 1000); // 2 seconds
+      const colors = ['#bb0000', '#ffffff'];
+
+      const frame = () => {
+        // From bottom center
+        (window as any).confetti({
+          particleCount: 2,
+          angle: 90,
+          spread: 60,
+          origin: { x: 0.5, y: 1 },
+          colors: colors
+        });
+
+        // From left side
+        (window as any).confetti({
+          particleCount: 2,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+
+        // From right side
+        (window as any).confetti({
+          particleCount: 2,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      };
+
+      frame(); // Start immediately
+    }
+  }, [loading]);
+
   useEffect(() => {
     setSelectedSubcategory('All');
   }, [selectedCategory]);
