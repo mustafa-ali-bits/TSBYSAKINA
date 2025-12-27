@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Star, Heart } from 'lucide-react';
 import { Product } from '../types/product';
 import { ProductUtils } from '../lib/productUtils';
@@ -13,11 +14,17 @@ interface ProductDetailProps {
 }
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
+  const router = useRouter();
   const discount = ProductUtils.getDiscountPercentage(product.mrp, product.price);
   const savings = ProductUtils.getSavingsAmount(product.mrp, product.price);
   const { addToCart, cart, updateQuantity, totalItems } = useCart();
   const cartItem = cart.find(item => item.id === product.id);
   const quantity = cartItem ? cartItem.quantity : 0;
+
+  const handleOrderNow = () => {
+    addToCart({ id: product.id, name: product.name, price: product.price, image: product.image }, 1);
+    router.push('/cart');
+  };
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -89,11 +96,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
               {product.inventory ? (
                 <>
                   {quantity === 0 ? (
-                    <button onClick={() => addToCart({ id: product.id, name: product.name, price: product.price, image: product.image }, 1)} className="w-4/5 bg-amber-800 text-white py-4 rounded-full font-semibold hover:bg-amber-700 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg">
+                    <button onClick={() => addToCart({ id: product.id, name: product.name, price: product.price, image: product.image }, 1)} className="w-full bg-amber-800 text-white py-4 rounded-full font-semibold hover:bg-amber-700 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg">
                       Add to Cart
                     </button>
                   ) : (
-                    <div className="flex items-center justify-between w-4/5">
+                    <div className="flex items-center justify-between w-full">
                       <button onClick={() => updateQuantity(product.id, quantity - 1)} className="bg-amber-900 text-white py-4 px-6 rounded-full font-semibold hover:bg-amber-800 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg">
                         -
                       </button>
@@ -103,7 +110,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                       </button>
                     </div>
                   )}
-                  <button className="w-4/5 bg-white text-amber-900 py-4 rounded-full font-semibold hover:bg-stone-100 transition-all shadow-md border border-stone-200">
+                  <button onClick={handleOrderNow} className="w-full bg-white text-amber-900 py-4 rounded-full font-semibold hover:bg-stone-100 transition-all shadow-md border border-stone-200">
                     Order
                   </button>
                 </>

@@ -1,17 +1,26 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useCart } from '../../src/context/CartContext';
-import { Trash2, Plus, Minus } from 'lucide-react';
+import { Trash2, Plus, Minus, MessageCircle } from 'lucide-react';
 
 const CartPage: React.FC = () => {
   const { cart, updateQuantity, removeFromCart, totalItems } = useCart();
 
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const tax = subtotal * 0.1; // 10% tax
-  const deliveryFee = subtotal > 500 ? 0 : 50; // Free delivery over ₹500
-  const total = subtotal + tax + deliveryFee;
+  const deliveryFee = subtotal > 800 ? 0 : 60; // Free delivery over ₹800
+  const total = subtotal + deliveryFee;
+
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+
+  const handleOrderNow = () => {
+    const message = `New Order:\n\nCustomer Details:\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\n\nOrder Items:\n${cart.map(item => `- ${item.name} x ${item.quantity}: ₹${(item.price * item.quantity).toFixed(2)}`).join('\n')}\n\nSubtotal: ₹${subtotal.toFixed(2)}\nDelivery Fee: ${deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}\nTotal: ₹${total.toFixed(2)}`;
+    const whatsappUrl = `https://wa.me/918955094830?text=${encodeURIComponent(message)}`;
+    window.location.href = whatsappUrl;
+  };
 
   if (cart.length === 0) {
     return (
@@ -109,18 +118,14 @@ const CartPage: React.FC = () => {
                   <span>₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-stone-600">
-                  <span>Tax (10%)</span>
-                  <span>₹{tax.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between text-stone-600">
                   <span>Delivery Fee</span>
                   <span className={deliveryFee === 0 ? 'text-green-600' : ''}>
                     {deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}
                   </span>
                 </div>
-                {subtotal < 500 && (
+                {subtotal < 800 && (
                   <p className="text-xs text-stone-500">
-                    Add ₹{(500 - subtotal).toFixed(2)} more for free delivery
+                    Add ₹{(800 - subtotal).toFixed(2)} more for free delivery
                   </p>
                 )}
               </div>
@@ -132,8 +137,48 @@ const CartPage: React.FC = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-amber-800 text-white py-3 rounded-full font-semibold hover:bg-amber-700 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg mb-3">
-                Proceed to Checkout
+              <h3 className="text-lg font-semibold text-amber-900 mb-4">Delivery Information</h3>
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-stone-700 mb-1">Name</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-stone-700 mb-1">Phone Number</label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    placeholder="Enter your phone number"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-stone-700 mb-1">Address</label>
+                  <textarea
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    rows={3}
+                    className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    placeholder="Enter your delivery address"
+                  />
+                </div>
+              </div>
+
+              <button
+                onClick={handleOrderNow}
+                disabled={!name.trim() || !phone.trim() || !address.trim() || cart.length === 0}
+                className="w-full bg-green-600 text-white py-3 rounded-full font-semibold hover:bg-green-700 disabled:bg-stone-300 disabled:cursor-not-allowed transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mb-3"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Order Now on WhatsApp
               </button>
 
               <Link href="/">

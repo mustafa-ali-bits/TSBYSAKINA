@@ -12,7 +12,18 @@ const HeroSection: React.FC = () => {
             <p className="text-lg text-stone-700 leading-relaxed">
               Every piece tells a story of passion, quality, and artistry. Discover chocolates crafted with love by Sakina.
             </p>
-            <button className="bg-amber-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            <button
+              onClick={() => {
+                const element = document.getElementById('product-1');
+                if (element) {
+                  element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                  });
+                }
+              }}
+              className="bg-amber-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            >
               Explore Collection
             </button>
           </div>
