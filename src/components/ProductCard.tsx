@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div id={`product-${product.id}`} className="group bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer" onClick={() => router.push(`/products/${product.id}`)}>
-      <div className="relative h-48 md:h-72 overflow-hidden bg-stone-100">
+            <div className="relative h-80 md:h-96 overflow-hidden bg-stone-100">
         {product.image ? (
           <img
             src={product.image}
@@ -69,29 +69,27 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
 
-      <div className="p-4 md:p-6">
-        <div className="flex items-start justify-between mb-2">
-          <h3 className="text-xl font-serif font-bold text-amber-900 flex-1">{product.name}</h3>
-          <div className="flex items-center gap-1 ml-4">
+      <div className="p-2 md:p-3">
+        <div className="flex items-start justify-between mb-1">
+          <h3 className="text-lg font-serif font-bold text-amber-900 flex-1 leading-tight">{product.name}</h3>
+          <div className="flex items-center gap-1 ml-2">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-stone-300'}`}
+                className={`w-3 h-3 ${i < Math.floor(product.rating) ? 'fill-amber-400 text-amber-400' : 'text-stone-300'}`}
               />
             ))}
-            <span className="text-sm font-medium text-stone-700 ml-1">{product.rating}</span>
+            <span className="text-xs font-medium text-stone-700 ml-1">{product.rating}</span>
           </div>
         </div>
-        <p className="text-stone-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+        <p className="text-stone-600 text-xs mb-2 line-clamp-2 leading-tight">{product.description}</p>
 
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-amber-900">₹{product.price}</span>
-              <span className="text-sm text-stone-400 line-through">₹{product.mrp}</span>
-            </div>
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold text-amber-900">₹{product.price}</span>
+            <span className="text-xs text-stone-400 line-through">₹{product.mrp}</span>
             <span className="text-xs text-green-600 font-semibold">
-              You save ₹{savings}
+              Save ₹{savings}
             </span>
           </div>
         </div>
@@ -99,28 +97,28 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {product.inventory ? (
           <>
             {quantity === 0 ? (
-              <button onClick={(e) => { e.stopPropagation(); addToCart({ id: product.id, name: product.name, price: product.price, image: product.image }, 1); }} className="w-full bg-amber-800 text-white py-3 rounded-full font-semibold hover:bg-amber-700 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg mb-2">
+              <button onClick={(e) => { e.stopPropagation(); addToCart({ id: product.id, name: product.name, price: product.price, image: product.image }, 1); }} className="w-full bg-amber-800 text-white py-2 rounded-full font-semibold hover:bg-amber-700 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg mb-1 text-sm">
                 Add to Cart
               </button>
             ) : (
-              <div className="flex items-center justify-between mb-2 transition-all duration-300">
-                <button onClick={(e) => { e.stopPropagation(); updateQuantity(product.id, quantity - 1); }} className="bg-amber-900 text-white py-2 px-4 rounded-full font-semibold hover:bg-amber-800 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg">
+              <div className="flex items-center justify-between mb-1 transition-all duration-300">
+                <button onClick={(e) => { e.stopPropagation(); updateQuantity(product.id, quantity - 1); }} className="bg-amber-900 text-white py-1 px-3 rounded-full font-semibold hover:bg-amber-800 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg text-sm">
                   -
                 </button>
-                <span className="text-lg font-semibold text-amber-900 bg-stone-100 px-4 py-2 rounded-full transition-all duration-200">{quantity}</span>
-                <button onClick={(e) => { e.stopPropagation(); updateQuantity(product.id, quantity + 1); }} className="bg-amber-900 text-white py-2 px-4 rounded-full font-semibold hover:bg-amber-800 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg">
+                <span className="text-base font-semibold text-amber-900 bg-stone-100 px-3 py-1 rounded-full transition-all duration-200">{quantity}</span>
+                <button onClick={(e) => { e.stopPropagation(); updateQuantity(product.id, quantity + 1); }} className="bg-amber-900 text-white py-1 px-3 rounded-full font-semibold hover:bg-amber-800 active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg text-sm">
                   +
                 </button>
               </div>
             )}
             <Link href={`/products/${product.id}`}>
-              <button className="w-full bg-amber-900 text-white py-3 rounded-full font-semibold hover:bg-amber-800 transition-all shadow-md hover:shadow-lg" onClick={(e) => e.stopPropagation()}>
+              <button className="w-full bg-amber-900 text-white py-2 rounded-full font-semibold hover:bg-amber-800 transition-all shadow-md hover:shadow-lg text-sm" onClick={(e) => e.stopPropagation()}>
                 View Details
               </button>
             </Link>
           </>
         ) : (
-          <button className="w-full bg-stone-400 text-stone-600 py-3 rounded-full font-semibold cursor-not-allowed" disabled>
+          <button className="w-full bg-stone-400 text-stone-600 py-2 rounded-full font-semibold cursor-not-allowed text-sm" disabled>
             Out of Stock
           </button>
         )}
