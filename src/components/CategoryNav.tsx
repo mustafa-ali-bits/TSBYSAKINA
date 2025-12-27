@@ -8,7 +8,7 @@ interface CategoryNavProps {
 
 const CategoryNav: React.FC<CategoryNavProps> = ({ categories, selectedCategory, onSelectCategory }) => {
   return (
-    <section className="bg-white border-b border-stone-200 sticky top-20 z-40">
+    <section className="bg-white border-b border-stone-200">
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
           {categories.map(category => (

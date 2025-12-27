@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <div id={`product-${product.id}`} className="group bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer" onClick={() => router.push(`/products/${product.id}`)}>
-      <div className="relative h-72 overflow-hidden bg-stone-100">
+      <div className="relative h-48 md:h-72 overflow-hidden bg-stone-100">
         {product.image ? (
           <img
             src={product.image}
@@ -71,7 +71,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <div className="flex items-start justify-between mb-2">
           <h3 className="text-xl font-serif font-bold text-amber-900 flex-1">{product.name}</h3>
           <div className="flex items-center gap-1 ml-4">
