@@ -83,6 +83,8 @@ async function fetchFromGoogleSheets() {
       rating: parseFloat(row[7]) || 4.5,
       inventory: (row[8] || '').toLowerCase() === 'yes',
       customizationNote: row[10] || '',
+      storageCare: row[11] || '',
+      shelfLife: parseInt(row[12]) || 0,
     }));
 
     console.log(`Final products count: ${products.length}`);
@@ -139,6 +141,8 @@ function getDemoData() {
       rating: 4.8,
       inventory: true,
       customizationNote: 'Add personalized message or choose from available toppings like nuts, fruits, or edible flowers.',
+      storageCare: '• Refrigerate your chocolates for 10 minutes upon receiving to maintain the best texture and flavor.\n• Store in a cool, dry place to preserve aroma and quality.\n• Avoid high temperatures to prevent softening.',
+      shelfLife: 20
     },
     {
       id: 2,
@@ -152,6 +156,8 @@ function getDemoData() {
       rating: 4.9,
       inventory: true,
       customizationNote: 'Can be engraved with custom text or logo. Available in different cocoa percentages.',
+      storageCare: '• Keep in a cool, dry place away from direct sunlight.\n• Store at room temperature for best flavor.\n• Avoid storing near strong odors.',
+      shelfLife: 12
     }
   ];
 }

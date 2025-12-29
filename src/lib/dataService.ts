@@ -30,7 +30,9 @@ export const DataService = {
         image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400",
         rating: 4.8,
         inventory: true,
-        customizationNote: "Add personalized message or choose from available toppings like nuts, fruits, or edible flowers."
+        customizationNote: "Add personalized message or choose from available toppings like nuts, fruits, or edible flowers.",
+        storageCare: "• Refrigerate your chocolates for 10 minutes upon receiving to maintain the best texture and flavor.\n• Store in a cool, dry place to preserve aroma and quality.\n• Avoid high temperatures to prevent softening.",
+        shelfLife: 20
       },
       {
         id: 2,
@@ -43,7 +45,9 @@ export const DataService = {
         image: "https://images.unsplash.com/photo-1606312619070-d48b4a056a59?w=400",
         rating: 4.9,
         inventory: true,
-        customizationNote: "Can be engraved with custom text or logo. Available in different cocoa percentages."
+        customizationNote: "Can be engraved with custom text or logo. Available in different cocoa percentages.",
+        storageCare: "• Keep in a cool, dry place away from direct sunlight.\n• Store at room temperature for best flavor.\n• Avoid storing near strong odors.",
+        shelfLife: 12
       },
       {
         id: 3,
@@ -56,7 +60,9 @@ export const DataService = {
         image: "https://images.unsplash.com/photo-1607478900766-efe13248b125?w=400",
         rating: 5.0,
         inventory: true,
-        customizationNote: "Nut-free alternatives available. Can be customized with different nut types or made without nuts."
+        customizationNote: "Nut-free alternatives available. Can be customized with different nut types or made without nuts.",
+        storageCare: "• Store in a cool, dry place.\n• Refrigerate only if the weather is very hot.\n• Keep away from moisture to prevent sugar bloom.",
+        shelfLife: 15
       }
     ];
   }

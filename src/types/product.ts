@@ -10,4 +10,6 @@ export interface Product {
   rating: number;
   inventory: boolean;
   customizationNote: string;
+  storageCare: string;
+  shelfLife: number;
 }

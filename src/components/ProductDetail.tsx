@@ -242,6 +242,22 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
                 </div>
               )}
             </div>
+
+            {product.storageCare && (
+              <div className="bg-amber-50 p-3 md:p-4 rounded-xl border border-amber-200">
+                <h3 className="text-base font-semibold text-amber-900 mb-2">Storage & Care</h3>
+                <div className="text-sm text-stone-700 whitespace-pre-line leading-relaxed">
+                  {product.storageCare}
+                </div>
+              </div>
+            )}
+
+            {product.shelfLife && (
+              <div className="bg-amber-50 p-3 md:p-4 rounded-xl border border-amber-200">
+                <h3 className="text-base font-semibold text-amber-900 mb-2">Shelf Life</h3>
+                <p className="text-sm text-stone-700">{product.shelfLife} days</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

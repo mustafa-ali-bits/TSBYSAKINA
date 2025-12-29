@@ -64,6 +64,8 @@ async function fetchProductsFromAPI() {
       rating: parseFloat(row[7]) || 4.5,
       inventory: (row[8] || '').toLowerCase() === 'yes',
       customizationNote: row[10] || '',
+      storageCare: row[11] || '',
+      shelfLife: parseInt(row[12]) || 0,
     }));
 
     return products;
