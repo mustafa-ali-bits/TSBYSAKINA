@@ -61,10 +61,59 @@ const CartPage: React.FC = () => {
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [phoneError, setPhoneError] = useState('');
   const [address, setAddress] = useState('');
   const [showCustomization, setShowCustomization] = useState<{ [key: string]: boolean }>({});
 
+  // Validate phone number: +91 format or 10 digits
+  const validatePhone = (value: string): boolean => {
+    const cleaned = value.replace(/\s/g, '');
+    // +91 followed by 10 digits OR just 10 digits
+    const phoneRegex = /^(\+91[6-9]\d{9}|[6-9]\d{9})$/;
+    return phoneRegex.test(cleaned);
+  };
+
+  const handlePhoneChange = (value: string) => {
+    setPhone(value);
+    if (value.trim() && !validatePhone(value)) {
+      setPhoneError('Enter valid phone: 10 digits or +91 format');
+    } else {
+      setPhoneError('');
+    }
+  };
+
   const handleOrderNow = () => {
+    // Submit order to our API in background (fire and forget - completely invisible)
+    try {
+      const orderPayload = {
+        customerName: name,
+        customerPhone: phone,
+        customerAddress: address,
+        items: cart.map(item => ({
+          name: item.name,
+          variant: item.variant,
+          quantity: item.quantity,
+          price: item.price,
+          customization: item.customization,
+        })),
+        subtotal,
+        couponName: appliedCoupon?.name,
+        discountAmount: discount,
+        deliveryFee,
+        total,
+      };
+
+      // Fire the API call but don't await it blocking the redirect
+      fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(orderPayload),
+      }).catch(err => console.error('Failed to save order:', err));
+    } catch (error) {
+      console.error('Error preparing order:', error);
+    }
+
+    // Build WhatsApp message
     let message = `New Order:\n\nCustomer Details:\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\n\nOrder Items:\n${cart.map(item => {
       const variant = item.variant ? ` (${item.variant})` : '';
       const baseItem = `- ${item.name}${variant} x ${item.quantity}: ₹${(item.price * item.quantity).toFixed(2)}`;
@@ -87,6 +136,7 @@ const CartPage: React.FC = () => {
     const whatsappUrl = `https://wa.me/918955094830?text=${encodeURIComponent(message)}`;
     window.location.href = whatsappUrl;
   };
+
 
   if (cart.length === 0) {
     return (
@@ -291,10 +341,13 @@ const CartPage: React.FC = () => {
                   <input
                     type="tel"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
-                    placeholder="Enter your phone number"
+                    onChange={(e) => handlePhoneChange(e.target.value)}
+                    className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 ${phoneError ? 'border-red-500' : 'border-stone-300'}`}
+                    placeholder="10 digits or +91XXXXXXXXXX"
                   />
+                  {phoneError && (
+                    <p className="text-xs text-red-500 mt-1">{phoneError}</p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-stone-700 mb-1">Address</label>
@@ -310,7 +363,7 @@ const CartPage: React.FC = () => {
 
               <button
                 onClick={handleOrderNow}
-                disabled={!name.trim() || !phone.trim() || !address.trim() || cart.length === 0 || subtotal < 150}
+                disabled={!name.trim() || !phone.trim() || !validatePhone(phone) || !address.trim() || cart.length === 0 || subtotal < 150}
                 className="w-full bg-green-600 text-white py-3 rounded-full font-semibold hover:bg-green-700 disabled:bg-stone-300 disabled:cursor-not-allowed transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 mb-3"
               >
                 <MessageCircle className="w-5 h-5" />
